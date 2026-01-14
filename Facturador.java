@@ -4,12 +4,12 @@ public class Facturador{
 	static String[][] repertorio = {
 		 {"Tributo Robe", "heavy"}
 		,{"Homaneje Queen", "rock"}
-		,{"Magia Knoppler", "rock"}
+		,{"Magia Knoppler", "pop"}
 		,{"Demonios Rojos", "heavy"}
 	};
 
 	//Actuaciones realizadas indicando el concierto ofrecido y audiencias obtenidas.
-	static Integer[][] actuaciones = {{0, 2000}, {2, 1200}, {0, 950}, {3, 1140}};
+	static Integer[][] actuaciones = {{0, 2000}, {2, 1200}, {0, 950}, {3, 1140}, {1, 2140}};
 
 	static String cliente = "Ayuntamiento de Badajoz";
 
@@ -26,7 +26,7 @@ public class Facturador{
 
 			switch (repertorio[iConcierto][1]){
 				case "heavy":
-					importeActuacion = 4000d;
+					importeActuacion = 400d;
 					if (actuaciones[i][1] > 500)
 						importeActuacion += 20 * (actuaciones[i][1] - 500);
 					break;
