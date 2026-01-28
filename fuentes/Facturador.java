@@ -22,24 +22,7 @@ public class Facturador{
 
 		for(int i = 0; i < actuaciones.length; i++){
 			Integer iConcierto = actuaciones[i][0];
-			Double importeActuacion = 0d;
-
-			switch (repertorio[iConcierto][1]){
-				case "heavy":
-					importeActuacion = 400d;
-					if (actuaciones[i][1] > 500)
-						importeActuacion += 20 * (actuaciones[i][1] - 500);
-					break;
-				case "rock":
-					importeActuacion = 3000d;
-					if (actuaciones[i][1] > 1000)
-						importeActuacion += 30 * (actuaciones[i][1] - 1000);
-					break;
-				default:
-					throw new Exception("Tipo de concierto desconocido.");
-			}
-			
-			totalFactura += importeActuacion;
+			totalFactura += calcularImporteActuacion(repertorio[iConcierto][1],actuaciones[i][1]);
 
 			creditos += Math.max(actuaciones[i][1] - 500, 0);
 			if (repertorio[iConcierto][1].equals("heavy"))
@@ -53,5 +36,20 @@ public class Facturador{
 		System.out.printf("TOTAL FACTURA: %.2f euros\n", totalFactura * 1.21);
 		System.out.println("Créditos obtenidos: " + creditos);
 
+	}
+	public static Double calcularImporteActuacion(String tipo,Integer Asistentes)throws Exception{
+		Double importeActuacion;
+		if(tipo=="heavy"){
+			importeActuacion = 400d;
+			if (Asistentes > 500)
+				importeActuacion += 20 * (Asistentes - 500);
+		}else if(tipo=="rock"){
+			importeActuacion = 3000d;
+				if (Asistentes > 1000)
+					importeActuacion += 30 * (Asistentes - 1000);
+		}else{
+			throw new Exception("Tipo de concierto desconocido.");
+		}
+		return importeActuacion;
 	}
 }
