@@ -22,12 +22,10 @@ public class Facturador{
 
 		for(int i = 0; i < actuaciones.length; i++){
 			Integer iConcierto = actuaciones[i][0];
-			totalFactura += calcularImporteActuacion(repertorio[iConcierto][1],actuaciones[i][1]);
-
-			creditos += Math.max(actuaciones[i][1] - 500, 0);
-			if (repertorio[iConcierto][1].equals("heavy"))
-				creditos += actuaciones[i][1] / 5;
-
+			String tipoConcierto=repertorio[iConcierto][1];
+			Integer asistentes=actuaciones[i][1];
+			totalFactura += calcularImporteActuacion(tipoConcierto,asistentes);
+			creditos+=calcularCreditos(tipoConcierto,asistentes);
 			System.out.println("\tConcierto: " + repertorio[iConcierto][0]);
 			System.out.println("\t\tAsistentes: " + actuaciones[i][1]);
 		}
@@ -37,19 +35,25 @@ public class Facturador{
 		System.out.println("Créditos obtenidos: " + creditos);
 
 	}
-	public static Double calcularImporteActuacion(String tipo,Integer Asistentes)throws Exception{
+	public static Double calcularImporteActuacion(String tipo,Integer asistentes)throws Exception{
 		Double importeActuacion;
 		if(tipo=="heavy"){
 			importeActuacion = 400d;
-			if (Asistentes > 500)
-				importeActuacion += 20 * (Asistentes - 500);
+			if (asistentes > 500)
+				importeActuacion += 20 * (asistentes - 500);
 		}else if(tipo=="rock"){
 			importeActuacion = 3000d;
-				if (Asistentes > 1000)
-					importeActuacion += 30 * (Asistentes - 1000);
+				if (asistentes > 1000)
+					importeActuacion += 30 * (asistentes - 1000);
 		}else{
 			throw new Exception("Tipo de concierto desconocido.");
 		}
 		return importeActuacion;
+	}
+	public static Integer calcularCreditos(String tipo,Integer asistentes){
+		Integer creditos= Math.max(asistentes - 500, 0);
+		if (tipo.equals("heavy"))
+			creditos += asistentes / 5;
+		return creditos;
 	}
 }
