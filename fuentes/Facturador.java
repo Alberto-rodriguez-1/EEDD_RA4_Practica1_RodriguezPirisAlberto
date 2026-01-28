@@ -1,5 +1,8 @@
 public class Facturador{
-
+	private static final Double baseHeavy=400d;
+	private static final Double baseRock=3000d;
+	private static final Integer minAsistentesHeavy=500;
+	private static final Integer minAsistentesRock=1000;
 	//Repertorio de conciertos del grupo
 	static String[][] repertorio = {
 		 {"Tributo Robe", "heavy"}
@@ -38,11 +41,11 @@ public class Facturador{
 	public static Double calcularImporteActuacion(String tipo,Integer asistentes)throws Exception{
 		Double importeActuacion;
 		if(tipo=="heavy"){
-			importeActuacion = 400d;
-			if (asistentes > 500)
-				importeActuacion += 20 * (asistentes - 500);
+			importeActuacion = baseHeavy;
+			if (asistentes > minAsistentesHeavy)
+				importeActuacion += 20 * (asistentes - minAsistentesHeavy);
 		}else if(tipo=="rock"){
-			importeActuacion = 3000d;
+			importeActuacion = baseRock;
 				if (asistentes > 1000)
 					importeActuacion += 30 * (asistentes - 1000);
 		}else{
