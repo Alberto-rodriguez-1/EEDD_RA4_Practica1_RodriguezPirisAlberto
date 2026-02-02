@@ -5,7 +5,7 @@ public class Facturador{
 	private static final Integer MIN_ASISTENTES_ROCK=1000;
 	private static final float IVA = 0.21f;
 	//Repertorio de conciertos del grupo	
-	static String[][] repertorio = {
+	static String[][] conciertosDisponibles = {
 		 {"Tributo Robe", "heavy"}
 		,{"Homaneje Queen", "rock"}
 		,{"Magia Knoppler", "rock"}
@@ -13,7 +13,7 @@ public class Facturador{
 	};
 
 	//Actuaciones realizadas indicando el concierto ofrecido y audiencias obtenidas.
-	static Integer[][] actuaciones = {{0, 2000}, {2, 1200}, {0, 950}, {3, 1140}, {1, 2140}};
+	static Integer[][] actuacionesRealizadas = {{0, 2000}, {2, 1200}, {0, 950}, {3, 1140}, {1, 2140}};
 
 	static String cliente = "Ayuntamiento de Badajoz";
 
@@ -24,14 +24,14 @@ public class Facturador{
 		System.out.println("FACTURA DE ACTUACIONES");
 		System.out.println("Cliente: " + cliente);
 
-		for(int i = 0; i < actuaciones.length; i++){
-			Integer iConcierto = actuaciones[i][0];
-			String tipoConcierto=repertorio[iConcierto][1];
-			Integer asistentes=actuaciones[i][1];
+		for(int i = 0; i < actuacionesRealizadas.length; i++){
+			Integer indiceConcierto = actuacionesRealizadas[i][0];
+			String tipoConcierto=conciertosDisponibles[indiceConcierto][1];
+			Integer asistentes=actuacionesRealizadas[i][1];
 			totalFactura += calcularImporteActuacion(tipoConcierto,asistentes);
 			creditos+=calcularCreditos(tipoConcierto,asistentes);
-			System.out.println("\tConcierto: " + repertorio[iConcierto][0]);
-			System.out.println("\t\tAsistentes: " + actuaciones[i][1]);
+			System.out.println("\tConcierto: " + conciertosDisponibles[indiceConcierto][0]);
+			System.out.println("\t\tAsistentes: " + actuacionesRealizadas[i][1]);
 		}
 		System.out.println("BASE IMPONIBLE: " + totalFactura + " euros");
 		System.out.printf("IVA (21%%): %.2f euros\n", totalFactura * IVA);
