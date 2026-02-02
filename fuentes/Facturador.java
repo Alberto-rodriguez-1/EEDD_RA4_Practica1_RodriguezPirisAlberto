@@ -1,9 +1,10 @@
 public class Facturador{
-	private static final Double baseHeavy=400d;
-	private static final Double baseRock=3000d;
-	private static final Integer minAsistentesHeavy=500;
-	private static final Integer minAsistentesRock=1000;
-	//Repertorio de conciertos del grupo
+	private static final Double BASE_HEAVY=400d;
+	private static final Double BASE_ROCK=3000d;
+	private static final Integer MIN_ASISTENTES_HEAVY=500;
+	private static final Integer MIN_ASISTENTES_ROCK=1000;
+	private static final float IVA = 0.21f;
+	//Repertorio de conciertos del grupo	
 	static String[][] repertorio = {
 		 {"Tributo Robe", "heavy"}
 		,{"Homaneje Queen", "rock"}
@@ -33,28 +34,28 @@ public class Facturador{
 			System.out.println("\t\tAsistentes: " + actuaciones[i][1]);
 		}
 		System.out.println("BASE IMPONIBLE: " + totalFactura + " euros");
-		System.out.printf("IVA (21%%): %.2f euros\n", totalFactura * 0.21);
-		System.out.printf("TOTAL FACTURA: %.2f euros\n", totalFactura * 1.21);
+		System.out.printf("IVA (21%%): %.2f euros\n", totalFactura * IVA);
+		System.out.printf("TOTAL FACTURA: %.2f euros\n", totalFactura * (1+IVA));
 		System.out.println("Créditos obtenidos: " + creditos);
 
 	}
 	public static Double calcularImporteActuacion(String tipo,Integer asistentes)throws Exception{
 		Double importeActuacion;
 		if(tipo=="heavy"){
-			importeActuacion = baseHeavy;
-			if (asistentes > minAsistentesHeavy)
-				importeActuacion += 20 * (asistentes - minAsistentesHeavy);
+			importeActuacion = BASE_HEAVY;
+			if (asistentes > MIN_ASISTENTES_HEAVY)
+				importeActuacion += 20 * (asistentes - MIN_ASISTENTES_HEAVY);
 		}else if(tipo=="rock"){
-			importeActuacion = baseRock;
-				if (asistentes > 1000)
-					importeActuacion += 30 * (asistentes - 1000);
+			importeActuacion = BASE_ROCK;
+				if (asistentes > MIN_ASISTENTES_ROCK)
+					importeActuacion += 30 * (asistentes - MIN_ASISTENTES_ROCK);
 		}else{
 			throw new Exception("Tipo de concierto desconocido.");
 		}
 		return importeActuacion;
 	}
 	public static Integer calcularCreditos(String tipo,Integer asistentes){
-		Integer creditos= Math.max(asistentes - 500, 0);
+		Integer creditos= Math.max(asistentes - MIN_ASISTENTES_HEAVY, 0);
 		if (tipo.equals("heavy"))
 			creditos += asistentes / 5;
 		return creditos;
